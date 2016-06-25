@@ -16,17 +16,21 @@
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 
+error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
+success_search = "OK"
+
 
 def frisk_tweets(search_str):
     """ Takes in user-entered search string, returns list of tweets. """
     # by default, the search status is OK
-    status = "OK"
+    status = success_search
 
     # get list of words and operands from search string to make sure they meet Twitter's limit of 10
     words = search_str.split()
     if len(words) > 10:
-        status = "Error: Invalid search. Please use ten or fewer words and operands."
+        status = error_long_search
 
     tweet_list = []
     # TODO insert actual twitter calls here
+
     return status, tweet_list

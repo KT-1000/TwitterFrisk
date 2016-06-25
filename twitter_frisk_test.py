@@ -15,7 +15,7 @@
 
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
-
+import unittest
 import twitter_frisk as fts
 
 # TWITTER SEARCH API BEST PRACTICES
@@ -27,11 +27,33 @@ import twitter_frisk as fts
 #   4. The Search API is not complete index of all Tweets, but instead an index of recent Tweets.
 #       At the moment that index includes between 6-9 days of Tweets.
 
-status = None
-tweet_list = None
 
-status, tweet_list = fts.frisk_tweets("")
+class TestSearchString(unittest.TestCase):
 
-assert status == "OK"
-assert len(tweet_list) == 0
-assert tweet_list is not None
+    def test_search_length(self):
+        """ Best practice: must be no more than 10 keywords and operators per search"""
+        s = '1 2 3 4 5 6 7 8 9 10'
+        self.assertLessEqual(len(s.split()), 10)
+
+
+class TestReturnTweets(unittest.TestCase):
+
+    def test_return_exists(self):
+        """ Search must return at least one tweet. """
+        s = "cat"
+        status, tweet_list = fts.frisk_tweets(s)
+        self.assertIsNotNone(tweet_list, self)
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+# status = None
+# tweet_list = None
+#
+# status, tweet_list = fts.frisk_tweets("")
+#
+# assert status == fts.success_search
+# assert status == fts.error_long_search
+# assert len(tweet_list) <= 10
+# assert tweet_list is not None
