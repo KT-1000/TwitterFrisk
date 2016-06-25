@@ -19,6 +19,14 @@
 
 def frisk_tweets(search_str):
     """ Takes in user-entered search string, returns list of tweets. """
+    # by default, the search status is OK
+    status = "OK"
+
+    # get list of words and operands from search string to make sure they meet Twitter's limit of 10
+    words = search_str.split()
+    if len(words) > 10:
+        status = "Error: Invalid search. Please use ten or fewer words and operands."
+
     tweet_list = []
     # TODO insert actual twitter calls here
-    return tweet_list
+    return status, tweet_list

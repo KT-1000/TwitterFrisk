@@ -17,8 +17,21 @@
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 
 import twitter_frisk as fts
-# Pass in user query string, get list of tweets
-# Use best practices!!!
+
+# TWITTER SEARCH API BEST PRACTICES
+# https://dev.twitter.com/rest/public/search
+#   1. Ensure all parameters are properly URL encoded.
+#   2. Limit your searches to 10 keywords and operators.
+#   3. Queries can be limited due to complexity. If this happens the Search API will respond with the error:
+#       {"error":"Sorry, your query is too complex. Please reduce complexity and try again."}.
+#   4. The Search API is not complete index of all Tweets, but instead an index of recent Tweets.
+#       At the moment that index includes between 6-9 days of Tweets.
+
+status = None
 tweet_list = None
-tweet_list = fts.frisk_tweets("")
+
+status, tweet_list = fts.frisk_tweets("")
+
+assert status == "OK"
+assert len(tweet_list) == 0
 assert tweet_list is not None
