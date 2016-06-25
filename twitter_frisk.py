@@ -15,6 +15,7 @@
 
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
+from urllib.parse import quote_plus
 
 error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
 success_search = "OK"
@@ -30,7 +31,21 @@ def frisk_tweets(search_str):
     if len(words) > 10:
         status = error_long_search
 
+    # encode the search string to be used as params in URL
+    encode_search_string(search_str)
+
     tweet_list = []
     # TODO insert actual twitter calls here
 
     return status, tweet_list
+
+
+def encode_search_string(user_str):
+    """ Helper function. Takes user-entered search string and returns that string encoded for use as params in URL. """
+    encoded_search_str = quote_plus(user_str)
+
+    return encoded_search_str
+
+
+
+

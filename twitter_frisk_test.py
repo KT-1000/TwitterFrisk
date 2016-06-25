@@ -32,7 +32,7 @@ import twitter_frisk as fts
 class TestSearchString(unittest.TestCase):
 
     def test_search_length(self):
-        """ Best practice: must be no more than 10 keywords and operators per search"""
+        """ Best practice: must be no more than 10 keywords and operators per search. """
         s = '1 2 3 4 5 6 7 8 9 10'
         self.assertLessEqual(len(s.split()), 10)
 
@@ -56,12 +56,3 @@ class TestSearchEncoding(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-# status = None
-# tweet_list = None
-#
-# status, tweet_list = fts.frisk_tweets("")
-#
-# assert status == fts.success_search
-# assert status == fts.error_long_search
-# assert len(tweet_list) <= 10
-# assert tweet_list is not None
