@@ -16,7 +16,7 @@
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 
-import frisk_twitter_search as fts
+import twitter_frisk as fts
 # Pass in user query string, get list of tweets
 # Use best practices!!!
 tweet_list = None
