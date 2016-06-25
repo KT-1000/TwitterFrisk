@@ -16,6 +16,7 @@
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 import unittest
+from urllib.parse import quote_plus
 import twitter_frisk as fts
 
 # TWITTER SEARCH API BEST PRACTICES
@@ -44,6 +45,13 @@ class TestReturnTweets(unittest.TestCase):
         status, tweet_list = fts.frisk_tweets(s)
         self.assertIsNotNone(tweet_list, self)
 
+
+class TestSearchEncoding(unittest.TestCase):
+
+    def test_encoding(self):
+        """ Make sure query string can be encoded successfully. """
+        s = "it's balloonicorn!"
+        self.assertEqual(quote_plus(s), "it%27s+balloonicorn%21")
 
 if __name__ == '__main__':
     unittest.main()
