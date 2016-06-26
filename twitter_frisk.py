@@ -21,6 +21,8 @@ import urllib3
 import requests
 import json
 import base64
+import secrets
+
 error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
 success_search = "OK"
 
@@ -72,6 +74,24 @@ def frisk_tweets_encoded(encoded_str):
         r_json = r.json()
         code = r_json["errors"][0]['code']
     return code, tweets
+
+
+def frisk_auth_tweets_list(bearer_token, encoded_user_str):
+    """ Takes an encoded string and bearer token, and returns list of tweets. """
+    # Create an HTTP connection pool manager
+    manager = urllib3.PoolManager()
+
+    # format the Twitter URL appropriately
+    url = '"https://api.twitter.com/1.1/search/tweets.json?q=' + encoded_user_str
+
+    # Set the Authorization header using the value of the bearer_token key
+    http_headers = {'Authorization': 'Bearer %s' % bearer_token['access_token']}
+
+    # Send the request
+    r = manager.urlopen('GET', url, headers=http_headers)
+    derp = 27
+
+    return r
 
 
 def frisk_tweets(search_str):

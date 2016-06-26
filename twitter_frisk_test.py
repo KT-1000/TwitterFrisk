@@ -17,6 +17,7 @@
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 import unittest
 import twitter_frisk as fts
+import secrets as sec
 
 
 class TestReturnTweets(unittest.TestCase):
@@ -65,24 +66,19 @@ class TestTwitterAPI(unittest.TestCase):
         code, tweets = fts.frisk_tweets_encoded(s)
         self.assertEqual(code, 215)
 
-    def test_passed_authentication(self):
-        """ Good authentication returns success code ."""
-        s = "it%27s+balloonicorn%21"
-        code, tweets = fts.frisk_tweets_encoded(s)
-        self.assertEqual(code, 200)
-
     def test_auth(self):
         """ Note that this app uses Application-Only Authentication (vs Application-User Authentication)
         https://dev.twitter.com/oauth/application-only
         """
-        bearer_token = fts.frisk_tweets_auth()
+        bearer_token = fts.frisk_tweets_auth(s.CONSUMER_KEY, s.CONSUMER_SECRET)
         self.assertGreaterEqual(len(bearer_token), 0)
 
-    def test_tweets_returned(self):
-        """ A successful query and connection should return tweets. """
-        tweets = fts.frisk_tweets("it's balloonicorn!")
+    def test_list_tweets_returned(self):
+        """ A bearer token and user string should return a list of tweets. """
+        s = "it%27s+balloonicorn%21"
+        bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
+        tweets = fts.frisk_tweets_auth(bearer_token, s)
         self.assertGreaterEqual(len(tweets), 0)
-
 
 if __name__ == '__main__':
     unittest.main()
