@@ -55,6 +55,14 @@ class TestSearchString(unittest.TestCase):
 
 # TODO Limit Query complexity test.
 
+
+class TestTwitterAPI(unittest.TestCase):
+
+    def failed_authentication(self):
+        """ Bad authentication returns error code 215. """
+        s = "https://api.twitter.com/1.1/search/tweets.json?q=%23superbowl&result_type=recent"
+        self.assertEqual(s, 215)
+
 if __name__ == '__main__':
     unittest.main()
 

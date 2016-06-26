@@ -49,4 +49,9 @@ def frisk_tweets(search_str):
     return status, tweet_list, encoded_search
 
 
+def get_tweets(encoded_str):
+    """  """
+    return url_params
+
+
 
