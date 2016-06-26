@@ -37,15 +37,13 @@ def frisk_tweets_auth(consumer_key, secret_key):
     Note that this is necessary for the Twitter Search API:
     APPLICATION-ONLY AUTHENTICATION: https://dev.twitter.com/oauth/application-only
     """
-    # Create a HTTP connection pool manager
+    # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
 
-    # Set the variable to Twitter OAuth 2 endpoint
+    # Twitter OAuth 2 endpoint
     oauth_url = 'https://api.twitter.com/oauth2/token'
 
     # Set the HTTP request headers, including consumer key and secret
-    # need data to be be bytes instead of string in Python 3.5
-    # http://stackoverflow.com/questions/8908287/base64-encoding-in-python-3
     http_headers = {'Authorization': "Basic %s" % base64.b64encode("%s:%s" % (consumer_key, secret_key)),
                     'Content-Type': 'application/x-www-form-urlencoded'}
 
@@ -90,7 +88,6 @@ def frisk_tweets(search_str):
     encoded_search = encode_search_string(search_str)
 
     tweet_list = []
-    # TODO insert actual twitter calls here
 
     return status, tweet_list
 

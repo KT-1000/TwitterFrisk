@@ -75,8 +75,13 @@ class TestTwitterAPI(unittest.TestCase):
         """ Note that this app uses Application-Only Authentication (vs Application-User Authentication)
         https://dev.twitter.com/oauth/application-only
         """
-        bt = fts.frisk_tweets_auth()
-        self.assertGreaterEqual(len(bt), 0)
+        bearer_token = fts.frisk_tweets_auth()
+        self.assertGreaterEqual(len(bearer_token), 0)
+
+    def test_tweets_returned(self):
+        """ A successful query and connection should return tweets. """
+        tweets = fts.frisk_tweets("it's balloonicorn!")
+        self.assertGreaterEqual(len(tweets), 0)
 
 
 if __name__ == '__main__':
