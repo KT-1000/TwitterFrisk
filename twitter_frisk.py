@@ -16,10 +16,11 @@
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 
-from urllib.parse import quote_plus
+from urllib import quote_plus
+import urllib3
 import requests
-
-
+import json
+import base64
 error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
 success_search = "OK"
 
@@ -29,6 +30,35 @@ def encode_search_string(user_str):
     encoded_search_str = quote_plus(user_str)
 
     return encoded_search_str
+
+
+def frisk_tweets_auth(consumer_key, secret_key):
+    """ Takes in a consumer key and a secret key, returns a bearer token to be used in Twitter API calls.
+    Note that this is necessary for the Twitter Search API:
+    APPLICATION-ONLY AUTHENTICATION: https://dev.twitter.com/oauth/application-only
+    """
+    # Create a HTTP connection pool manager
+    manager = urllib3.PoolManager()
+
+    # Set the variable to Twitter OAuth 2 endpoint
+    oauth_url = 'https://api.twitter.com/oauth2/token'
+
+    # Set the HTTP request headers, including consumer key and secret
+    # need data to be be bytes instead of string in Python 3.5
+    # http://stackoverflow.com/questions/8908287/base64-encoding-in-python-3
+    http_headers = {'Authorization': "Basic %s" % base64.b64encode("%s:%s" % (consumer_key, secret_key)),
+                    'Content-Type': 'application/x-www-form-urlencoded'}
+
+    # Set the payload to the required OAuth grant type, in this case client credentials
+    request_body = "grant_type=client_credentials"
+
+    # Send the request
+    response = manager.urlopen("POST", oauth_url, headers=http_headers, body=request_body)
+
+    # Read the response as JSON
+    app_token = json.loads(response.data.decode("utf-8"))
+
+    return app_token
 
 
 def frisk_tweets_encoded(encoded_str):
@@ -43,7 +73,6 @@ def frisk_tweets_encoded(encoded_str):
     if r.status_code == 400:
         r_json = r.json()
         code = r_json["errors"][0]['code']
-        derp = 27
     return code, tweets
 
 

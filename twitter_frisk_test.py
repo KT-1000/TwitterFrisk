@@ -65,6 +65,20 @@ class TestTwitterAPI(unittest.TestCase):
         code, tweets = fts.frisk_tweets_encoded(s)
         self.assertEqual(code, 215)
 
+    def test_passed_authentication(self):
+        """ Good authentication returns success code ."""
+        s = "it%27s+balloonicorn%21"
+        code, tweets = fts.frisk_tweets_encoded(s)
+        self.assertEqual(code, 200)
+
+    def test_auth(self):
+        """ Note that this app uses Application-Only Authentication (vs Application-User Authentication)
+        https://dev.twitter.com/oauth/application-only
+        """
+        bt = fts.frisk_tweets_auth()
+        self.assertGreaterEqual(len(bt), 0)
+
+
 if __name__ == '__main__':
     unittest.main()
 
