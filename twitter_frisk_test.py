@@ -16,7 +16,6 @@
 # Please use Python/Flask along with the Twitter API for this exercise,
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 import unittest
-from urllib.parse import quote_plus
 import twitter_frisk as fts
 
 
@@ -43,7 +42,7 @@ class TestSearchEncoding(unittest.TestCase):
     def test_encoding(self):
         """ Make sure query string can be encoded successfully. """
         s = "it's balloonicorn!"
-        self.assertEqual(quote_plus(s), "it%27s+balloonicorn%21")
+        self.assertEqual(fts.encode_search_string(s), "it%27s+balloonicorn%21")
 
 
 class TestSearchString(unittest.TestCase):
@@ -51,7 +50,8 @@ class TestSearchString(unittest.TestCase):
     def test_search_length(self):
         """ Best practice: must be no more than 10 keywords and operators per search. """
         s = '1 2 3 4 5 6 7 8 9 10'
-        self.assertLessEqual(len(s.split()), 10)
+        status, tweet_list = fts.frisk_tweets(s)
+        self.assertLessEqual(status, "OK")
 
 # TODO Limit Query complexity test.
 
@@ -60,8 +60,9 @@ class TestTwitterAPI(unittest.TestCase):
 
     def failed_authentication(self):
         """ Bad authentication returns error code 215. """
-        s = "https://api.twitter.com/1.1/search/tweets.json?q=%23superbowl&result_type=recent"
-        self.assertEqual(s, 215)
+        s = "balloonicorn"
+        code, tweets = fts.get_tweets(s)
+        self.assertEqual(code, 215)
 
 if __name__ == '__main__':
     unittest.main()

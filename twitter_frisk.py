@@ -30,6 +30,11 @@ def encode_search_string(user_str):
     return encoded_search_str
 
 
+def get_tweets(encoded_str):
+    """ Takes an encoded string, returns a status code and list of tweets. """
+    return code, tweets
+
+
 def frisk_tweets(search_str):
     """ Takes in user-entered search string, returns list of tweets. """
     # by default, the search status is OK
@@ -46,12 +51,6 @@ def frisk_tweets(search_str):
     tweet_list = []
     # TODO insert actual twitter calls here
 
-    return status, tweet_list, encoded_search
-
-
-def get_tweets(encoded_str):
-    """  """
-    return url_params
-
+    return status, tweet_list
 
 
