@@ -21,7 +21,23 @@ import urllib3
 import requests
 import json
 import base64
-import secrets
+
+
+class FriskTweet(object):
+    """ A Tweet Object consists of
+        an author name,
+        the body of the tweet,
+        and the number of times the tweet was favorited.
+    """
+    def __init__(self, name, content, num_faves=0):
+        self.name = name
+        self.content = content
+        self.favorited = num_faves
+
+    def display_frisk_tweet(self):
+        print self.name
+        print self.content
+        print self.favorited
 
 error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
 success_search = "OK"
@@ -89,7 +105,6 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
 
     # Send the request
     r = manager.urlopen('GET', url, headers=http_headers)
-    derp = 27
 
     return r
 

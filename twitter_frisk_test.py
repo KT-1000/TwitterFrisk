@@ -75,7 +75,7 @@ class TestTwitterAPI(unittest.TestCase):
 
     def test_list_tweets_returned(self):
         """ A bearer token and user string should return a list of tweets. """
-        s = "it%27s+balloonicorn%21"
+        s = "Brexit"
         bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
         tweets = fts.frisk_auth_tweets_list(bearer_token, s)
         self.assertGreaterEqual(len(tweets), 0)
