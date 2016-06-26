@@ -70,7 +70,7 @@ class TestTwitterAPI(unittest.TestCase):
         """ Note that this app uses Application-Only Authentication (vs Application-User Authentication)
         https://dev.twitter.com/oauth/application-only
         """
-        bearer_token = fts.frisk_tweets_auth(s.CONSUMER_KEY, s.CONSUMER_SECRET)
+        bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
         self.assertGreaterEqual(len(bearer_token), 0)
 
     def test_list_tweets_returned(self):
