@@ -59,9 +59,9 @@ class TestSearchString(unittest.TestCase):
 
 class TestTwitterAPI(unittest.TestCase):
 
-    def failed_authentication(self):
+    def test_failed_authentication(self):
         """ Bad authentication returns error code 215. """
-        s = "balloonicorn"
+        s = "it%27s+balloonicorn%21"
         code, tweets = fts.frisk_tweets_encoded(s)
         self.assertEqual(code, 215)
 

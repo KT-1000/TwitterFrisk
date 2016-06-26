@@ -17,6 +17,7 @@
 # and stick to Python/Flask and code organization/design best practices as much as you can.
 
 from urllib.parse import quote_plus
+import requests
 
 
 error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
@@ -32,6 +33,17 @@ def encode_search_string(user_str):
 
 def frisk_tweets_encoded(encoded_str):
     """ Takes an encoded string, returns a status code and list of tweets. """
+    code = 0
+    tweets = []
+    # format the twitter api search url
+    search_root = "https://api.twitter.com/1.1/search/tweets.json?q="
+    search_url = search_root + encoded_str
+    r = requests.get(search_url)
+    # HTTP 400 Bad Request
+    if r.status_code == 400:
+        r_json = r.json()
+        code = r_json["errors"][0]['code']
+        derp = 27
     return code, tweets
 
 
