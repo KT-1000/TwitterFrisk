@@ -42,7 +42,8 @@ class TestSearchEncoding(unittest.TestCase):
     def test_encoding(self):
         """ Make sure query string can be encoded successfully. """
         s = "it's balloonicorn!"
-        self.assertEqual(fts.encode_search_string(s), "it%27s+balloonicorn%21")
+        encoded = fts.encode_search_string(s)
+        self.assertEqual(encoded, "it%27s+balloonicorn%21")
 
 
 class TestSearchString(unittest.TestCase):
@@ -61,7 +62,7 @@ class TestTwitterAPI(unittest.TestCase):
     def failed_authentication(self):
         """ Bad authentication returns error code 215. """
         s = "balloonicorn"
-        code, tweets = fts.get_tweets(s)
+        code, tweets = fts.frisk_tweets_encoded(s)
         self.assertEqual(code, 215)
 
 if __name__ == '__main__':

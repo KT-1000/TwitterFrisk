@@ -30,7 +30,7 @@ def encode_search_string(user_str):
     return encoded_search_str
 
 
-def get_tweets(encoded_str):
+def frisk_tweets_encoded(encoded_str):
     """ Takes an encoded string, returns a status code and list of tweets. """
     return code, tweets
 
