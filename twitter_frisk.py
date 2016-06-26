@@ -35,12 +35,7 @@ class FriskTweet(object):
         self.favorited = num_faves
 
     def display_frisk_tweet(self):
-        print self.name
-        print self.content
-        print self.favorited
-
-error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
-success_search = "OK"
+        print 'Author: %s  Content: %s Favorited: %d' % (self.name, self.content, self.favorited)
 
 
 def encode_search_string(user_str):
@@ -111,6 +106,9 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
 
 def frisk_tweets(search_str):
     """ Takes in user-entered search string, returns list of tweets. """
+    error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
+    success_search = "OK"
+
     # by default, the search status is OK
     status = success_search
 
