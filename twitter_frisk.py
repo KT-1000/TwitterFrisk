@@ -19,15 +19,15 @@
 from urllib.parse import quote_plus
 
 
+error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
+success_search = "OK"
+
+
 def encode_search_string(user_str):
     """ Helper function. Takes user-entered search string and returns that string encoded for use as params in URL. """
     encoded_search_str = quote_plus(user_str)
 
     return encoded_search_str
-
-
-error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
-success_search = "OK"
 
 
 def frisk_tweets(search_str):
@@ -46,7 +46,7 @@ def frisk_tweets(search_str):
     tweet_list = []
     # TODO insert actual twitter calls here
 
-    return status, tweet_list
+    return status, tweet_list, encoded_search
 
 
 
