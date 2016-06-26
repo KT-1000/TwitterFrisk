@@ -19,6 +19,15 @@ import unittest
 from urllib.parse import quote_plus
 import twitter_frisk as fts
 
+
+class TestReturnTweets(unittest.TestCase):
+
+    def test_return_exists(self):
+        """ Search must return at least one tweet. """
+        s = "cat"
+        status, tweet_list = fts.frisk_tweets(s)
+        self.assertIsNotNone(tweet_list, self)
+
 # TWITTER SEARCH API BEST PRACTICES
 # https://dev.twitter.com/rest/public/search
 #   1. Ensure all parameters are properly URL encoded.
@@ -29,6 +38,14 @@ import twitter_frisk as fts
 #       At the moment that index includes between 6-9 days of Tweets.
 
 
+class TestSearchEncoding(unittest.TestCase):
+
+    def test_encoding(self):
+        """ Make sure query string can be encoded successfully. """
+        s = "it's balloonicorn!"
+        self.assertEqual(quote_plus(s), "it%27s+balloonicorn%21")
+
+
 class TestSearchString(unittest.TestCase):
 
     def test_search_length(self):
@@ -36,22 +53,7 @@ class TestSearchString(unittest.TestCase):
         s = '1 2 3 4 5 6 7 8 9 10'
         self.assertLessEqual(len(s.split()), 10)
 
-
-class TestReturnTweets(unittest.TestCase):
-
-    def test_return_exists(self):
-        """ Search must return at least one tweet. """
-        s = "cat"
-        status, tweet_list = fts.frisk_tweets(s)
-        self.assertIsNotNone(tweet_list, self)
-
-
-class TestSearchEncoding(unittest.TestCase):
-
-    def test_encoding(self):
-        """ Make sure query string can be encoded successfully. """
-        s = "it's balloonicorn!"
-        self.assertEqual(quote_plus(s), "it%27s+balloonicorn%21")
+# TODO Limit Query complexity test.
 
 if __name__ == '__main__':
     unittest.main()
