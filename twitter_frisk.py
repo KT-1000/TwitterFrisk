@@ -82,7 +82,7 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
     manager = urllib3.PoolManager()
 
     # format the Twitter URL appropriately
-    url = '"https://api.twitter.com/1.1/search/tweets.json?q=' + encoded_user_str
+    url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + encoded_user_str
 
     # Set the Authorization header using the value of the bearer_token key
     http_headers = {'Authorization': 'Bearer %s' % bearer_token['access_token']}
