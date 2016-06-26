@@ -19,5 +19,5 @@ Sign up for app in Twitter dev. Make your own secrets.sh containing those four k
 
 ## <a name="Testing"></a>Testing
 
-TwitterFrisk was created using Test-Driven Development, and has X% coverage via frisk_twitter_search_test.py.
+TwitterFrisk was created using Test-Driven Development.
 
