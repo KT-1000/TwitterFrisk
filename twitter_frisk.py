@@ -106,8 +106,11 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
     # Jsonify the request, so we can make each tweet
     json_statuses = json.loads(r.data)
 
-    for status in json_statuses:
-        new_status = FriskTweet()
+    for status in json_statuses["statuses"]:
+        author = status["user"]["name"]
+        content = status["text"]
+        num_faves = status["favorite_count"]
+        status_list.append(FriskTweet(author, content, num_faves))
 
     return status_list
 
