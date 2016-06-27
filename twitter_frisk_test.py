@@ -55,15 +55,13 @@ class TestSearchString(unittest.TestCase):
         status, tweet_list = fts.frisk_tweets(s)
         self.assertLessEqual(status, "OK")
 
-# TODO Limit Query complexity test.
-
 
 class TestTwitterAPI(unittest.TestCase):
 
     def test_failed_authentication(self):
         """ Bad authentication returns error code 215. """
         s = "it%27s+balloonicorn%21"
-        code, tweets = fts.frisk_tweets_encoded(s)
+        code, tweets = fts.frisk_auth_tweets_list(s)
         self.assertEqual(code, 215)
 
     def test_auth(self):
@@ -82,4 +80,3 @@ class TestTwitterAPI(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

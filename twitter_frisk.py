@@ -21,6 +21,7 @@ import urllib3
 import requests
 import json
 import base64
+import secrets as sec
 
 
 class FriskTweet(object):
@@ -72,23 +73,10 @@ def frisk_tweets_auth(consumer_key, secret_key):
     return app_token
 
 
-def frisk_tweets_encoded(encoded_str):
-    """ Takes an encoded string, returns a status code and list of tweets. """
-    code = 0
-    tweets = []
-    # format the twitter api search url
-    search_root = "https://api.twitter.com/1.1/search/tweets.json?q="
-    search_url = search_root + encoded_str
-    r = requests.get(search_url)
-    # HTTP 400 Bad Request
-    if r.status_code == 400:
-        r_json = r.json()
-        code = r_json["errors"][0]['code']
-    return code, tweets
-
-
 def frisk_auth_tweets_list(bearer_token, encoded_user_str):
-    """ Takes an encoded string and bearer token, and returns list of tweets. """
+    """ Takes an encoded string and bearer token, and returns a status code and list of tweets. """
+    code = 0
+
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
 
@@ -100,6 +88,10 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
 
     # Send the request
     r = manager.urlopen('GET', url, headers=http_headers)
+    # HTTP 400 Bad Request
+    if r.status_code == 400:
+        r_json = r.json()
+        code = r_json["errors"][0]['code']
 
     # Jsonify the request, so we can make each tweet
     json_statuses = json.loads(r.data)
@@ -107,7 +99,7 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
     # List of tweets aka statuses according to Twitter
     status_list = []
 
-    # Each hastag in result set is a key, and the value will be a count of that hastag incremented with each occurence
+    # Each hastag in result set is a key, and the value will be a count of that hashtag incremented with each occurrence
     counted_hashtags = {}
 
     # Grab the values from json's statuses dict to create a new FriskTweet object
@@ -116,6 +108,7 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
         content = status["text"]
         num_faves = status["favorite_count"]
         status_list.append(FriskTweet(author, content, num_faves))
+
         # hashtag list contains dictionaries with keys 'indices' and 'text'
         hashtag_list = status["entities"]["hashtags"]
         for hashtag_dict in hashtag_list:
@@ -129,7 +122,7 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
                 print e, hashtag_dict
                 continue
 
-    return status_list, counted_hashtags
+    return code, status_list, counted_hashtags
 
 
 def frisk_tweets(search_str):
@@ -148,8 +141,10 @@ def frisk_tweets(search_str):
     # encode the search string to be used as params in URL
     encoded_search = encode_search_string(search_str)
 
-    tweet_list = []
+    # get bearer token
+    bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
 
-    return status, tweet_list
+    # get code, tweets, and hashtag dictionaries
+    code, status_list, counted_hashtags = frisk_auth_tweets_list(bearer_token, encoded_search)
 
-
+    return status, status_list
