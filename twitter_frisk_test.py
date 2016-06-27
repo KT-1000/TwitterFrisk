@@ -5,7 +5,7 @@
 # For each result tweet,
     # display the name of the person who tweeted it,
     # the content of the tweet,
-    # and the number of times it was favored.
+    # and the number of times it was favorited.
 
 # Separate from the list of tweets above,
     # display a sidebar containing a list of hashtags present in the result set
@@ -19,15 +19,6 @@ import unittest
 import twitter_frisk as fts
 import secrets as sec
 
-
-class TestReturnTweets(unittest.TestCase):
-
-    def test_return_exists(self):
-        """ Search must return at least one tweet. """
-        s = "cat"
-        status, tweet_list = fts.frisk_tweets(s)
-        self.assertIsNotNone(tweet_list, self)
-
 # TWITTER SEARCH API BEST PRACTICES
 # https://dev.twitter.com/rest/public/search
 #   1. Ensure all parameters are properly URL encoded.
@@ -36,6 +27,15 @@ class TestReturnTweets(unittest.TestCase):
 #       {"error":"Sorry, your query is too complex. Please reduce complexity and try again."}.
 #   4. The Search API is not complete index of all Tweets, but instead an index of recent Tweets.
 #       At the moment that index includes between 6-9 days of Tweets.
+
+
+class TestReturnTweets(unittest.TestCase):
+
+    def test_return_exists(self):
+        """ Search must return at least one tweet. """
+        s = "cat"
+        status, tweet_list = fts.frisk_tweets(s)
+        self.assertIsNotNone(tweet_list, self)
 
 
 class TestSearchEncoding(unittest.TestCase):
@@ -75,7 +75,7 @@ class TestTwitterAPI(unittest.TestCase):
 
     def test_list_tweets_returned(self):
         """ A bearer token and user string should return a list of tweets. """
-        s = "jediphone"
+        s = "Brexit"
         bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
         tweets = fts.frisk_auth_tweets_list(bearer_token, s)
         self.assertGreaterEqual(len(tweets), 0)

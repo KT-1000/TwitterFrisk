@@ -5,7 +5,7 @@
 # For each result tweet,
     # display the name of the person who tweeted it,
     # the content of the tweet,
-    # and the number of times it was favored.
+    # and the number of times it was favorited.
 
 # Separate from the list of tweets above,
     # display a sidebar containing a list of hashtags present in the result set
@@ -101,18 +101,35 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
     # Send the request
     r = manager.urlopen('GET', url, headers=http_headers)
 
-    status_list = []
-
     # Jsonify the request, so we can make each tweet
     json_statuses = json.loads(r.data)
 
+    # List of tweets aka statuses according to Twitter
+    status_list = []
+
+    # Each hastag in result set is a key, and the value will be a count of that hastag incremented with each occurence
+    counted_hashtags = {}
+
+    # Grab the values from json's statuses dict to create a new FriskTweet object
     for status in json_statuses["statuses"]:
         author = status["user"]["name"]
         content = status["text"]
         num_faves = status["favorite_count"]
         status_list.append(FriskTweet(author, content, num_faves))
+        # hashtag list contains dictionaries with keys 'indices' and 'text'
+        hashtag_list = status["entities"]["hashtags"]
+        for hashtag_dict in hashtag_list:
+            try:
+                hashtag = hashtag_dict["text"]
+                if hashtag in counted_hashtags:
+                    counted_hashtags[hashtag] += 1
+                else:
+                    counted_hashtags[hashtag] = 1
+            except IndexError as e:
+                print e, hashtag_dict
+                continue
 
-    return status_list
+    return status_list, counted_hashtags
 
 
 def frisk_tweets(search_str):
