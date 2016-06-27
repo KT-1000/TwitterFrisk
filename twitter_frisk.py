@@ -101,15 +101,15 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
     # Send the request
     r = manager.urlopen('GET', url, headers=http_headers)
 
-    tweet_list = []
+    status_list = []
 
     # Jsonify the request, so we can make each tweet
-    tweets = json.loads(r.data)
+    json_statuses = json.loads(r.data)
 
-    for tweet in tweets:
-        tweet_list.append(tweet)
+    for status in json_statuses:
+        new_status = FriskTweet()
 
-    return tweet_list
+    return status_list
 
 
 def frisk_tweets(search_str):
