@@ -11,13 +11,12 @@ class FriskTweet(object):
         the body of the tweet,
         and the number of times the tweet was favorited.
     """
-    def __init__(self, name, content, num_faves=0):
+    def __init__(self, screen_name, portrait, name, content, num_faves=0):
+        self.screen_name = screen_name
+        self.portrait = portrait
         self.name = name
         self.content = content
         self.favorited = num_faves
-
-    def display_frisk_tweet(self):
-        print 'Author: %s  Content: %s Favorited: %d' % (self.name, self.content, self.favorited)
 
 
 def encode_search_string(user_str):
@@ -95,10 +94,12 @@ def frisk_auth_tweets_list(user_str):
 
     # Grab the values from json's statuses dict to create a new FriskTweet object
     for status in json_statuses["statuses"]:
+        screen_name = status["user"]["screen_name"]
+        portrait = status["user"]["profile_image_url_https"]
         author = status["user"]["name"]
         content = status["text"]
         num_faves = status["favorite_count"]
-        status_list.append(FriskTweet(author, content, num_faves))
+        status_list.append(FriskTweet(screen_name, portrait, author, content, num_faves))
 
         # hashtag list contains dictionaries with keys 'indices' and 'text'
         hashtag_list = status["entities"]["hashtags"]

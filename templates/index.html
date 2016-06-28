@@ -18,11 +18,11 @@
             <div class="media panel panel-default panel-body">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object" src="..." alt="...">
+                        <img class="media-object" src="{{ status.portrait }}" alt="Picture of {{ status.name }}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">{{ status.name }}</h4>
+                    <h4 class="media-heading">{{ status.name }} @{{ status.screen_name }}</h4>
                     {{ status.content }}
                     <div class="pull-right"><span class="glyphicon glyphicon-heart"></span>  {{ status.favorited }}</div>
                 </div>
