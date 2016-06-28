@@ -1,6 +1,6 @@
 # TwitterFrisk
 
-TwitterFrisk is a search engine that uses the Twitter API to return tweets given a user-entered string.
+TwitterFrisk is a search engine that uses the Twitter API to return tweets given a user-entered string. It also displays any hashtags used in the returned tweets, along with a count of how many times that hastag occurred.
 
 ![TwitterFrisk in action](/static/images/TwitterFrisk.PNG?raw=true "TwitterFrisk")
 
@@ -17,7 +17,9 @@ TwitterFrisk is a search engine that uses the Twitter API to return tweets given
 
 ## <a name="Installation"></a>Installation
 
-Sign up for app in Twitter dev. Make your own secrets.sh containing those four keys.
+The (literal) key(s) to getting TwitterFrisk to run locally, aside from installing the dependencies listed in requirements.txt, is to create a secrets.py file. To get the CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN and ACCESS_TOKEN_SECRET contained in your personal secrets.py file, create a [Twitter application] (https://apps.twitter.com/). These keys will be used to generate the bearer token necessary to make Twitter Search API requests.
+
+![Twitter App](/static/images/TwitterAppAccess.PNG?raw=true "Twitter App Access")
 
 ## <a name="Testing"></a>Testing
 
