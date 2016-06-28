@@ -53,7 +53,7 @@ class TestSearchString(unittest.TestCase):
         """ Best practice: must be no more than 10 keywords and operators per search. """
         s = '1 2 3 4 5 6 7 8 9 10'
         status, tweets, hashtags = fts.frisk_tweets(s)
-        self.assertLessEqual(status, "OK")
+        self.assertEqual(status, "OK")
 
 
 class TestTwitterAPI(unittest.TestCase):
@@ -75,6 +75,8 @@ class TestTwitterAPI(unittest.TestCase):
         s = "Brexit"
         status, tweets, hashtags = fts.frisk_tweets(s)
         self.assertGreaterEqual(len(tweets), 0)
+        self.assertEqual(status, "OK")
+
 
 if __name__ == '__main__':
     unittest.main()
