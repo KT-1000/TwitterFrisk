@@ -1,4 +1,22 @@
 body {
-    font-family: 'Raleway', sans-serif;
-    background-image: url("static/images/twitter_bird.jpg");
+    background-image: image("/static/images/twitter_desk.jpg");
+}
+
+.navbar-default {
+    height: 60px;
+    background-image: none;
+    background-color: #ffffff; !important
+}
+
+.form-group {
+    display: inline;
+}
+
+.input-group {
+    display: table;
+}
+
+#logo-img {
+    margin-top: -12px;
+    height: 50px;
 }
