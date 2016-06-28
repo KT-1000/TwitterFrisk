@@ -59,11 +59,9 @@ class TestSearchString(unittest.TestCase):
 class TestTwitterAPI(unittest.TestCase):
 
     def test_failed_authentication(self):
-        """ Bad authentication returns error code 215. """
-        s = "it%27s+balloonicorn%21"
-        bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
-        tweets, hashtags = fts.frisk_auth_tweets_list(bearer_token, s)
-        self.assertEqual(code, 215)
+        """ Bad authentication returns blank bearer token. """
+        bearer_token = fts.frisk_tweets_auth("", "")
+        self.assertEqual(bearer_token, "")
 
     def test_passed_authentication(self):
         """ Note that this app uses Application-Only Authentication (vs Application-User Authentication)

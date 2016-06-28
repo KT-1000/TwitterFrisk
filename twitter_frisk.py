@@ -84,7 +84,8 @@ def frisk_auth_tweets_list(encoded_user_str):
     # List of tweets aka statuses according to Twitter
     status_list = []
 
-    # Each hashtag in result set is a key, and the value will be a count of that hashtag incremented with each occurrence
+    # Each hashtag in result set is a key,
+    # and the value will be a count of that hashtag incremented with each occurrence
     counted_hashtags = {}
 
     if bearer_token == "":
