@@ -3,6 +3,7 @@ body {
 }
 
 .navbar-default {
+    border-bottom: hidden;
     height: 60px;
     background-image: none;
     background-color: #ffffff; !important

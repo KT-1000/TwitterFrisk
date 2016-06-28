@@ -1,41 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-{#    <!-- Heading and Search -->#}
-{#    <div class="row">#}
-{#        <h1>TwitterFrisk</h1>#}
-{#        <form class="form-horizontal" id="search-default" action="/search">#}
-{#            <div class="form-group">#}
-{#                <div class="col-lg-12 middle-box">#}
-{#                    <div class="col-lg-8 search-box pull-right">#}
-{#                        <input class="form-control input-lg" id="search-term" name="search-term" type="text">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <input class="btn btn-lg btn-default col-xs-4 col-xs-offset-4" type="submit" value="Search">#}
-{#            </div>#}
-{#        </form><!-- .form-horizontal -->#}
-{#    </div> <!-- .row -->#}
-
     <div class="row">
-
-            <table>
-                <tr>
-                    <td>
-                        <ul>
-                            {% for key, value in hashtags.iteritems() %}
-                            <li># {{ key }} : {{ value }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                        {% for status in status_list %}
-                            <li>{{ status.name }} {{ status.content }} {{ status.favorited }}</li>
-                        {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-            </table>
+        <!-- Hashtags -->
+            <ul class="list-group">
+                {% for key, value in hashtags.iteritems() %}
+                <li class="list-group-item">
+                    <span class="badge">{{ value }}</span>
+                    #{{ key }}
+                </li>
+                {% endfor %}
+            </ul>
+        <!-- Tweets -->
+            {% for status in status_list %}
+            <div class="media panel panel-default panel-body">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="..." alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ status.name }}</h4>
+                    {{ status.content }}
+                    <div class="pull-right"><span class="glyphicon glyphicon-heart"></span>  {{ status.favorited }}</div>
+                </div>
+            </div>
+            {% endfor %}
 
     </div><!-- .row -->
-
 {% endblock %}
