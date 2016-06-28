@@ -50,6 +50,7 @@ def frisk_tweets_auth(consumer_key, secret_key):
     Note that this is necessary for the Twitter Search API:
     APPLICATION-ONLY AUTHENTICATION: https://dev.twitter.com/oauth/application-only
     """
+    # if either the consumer or secret keys are missing, return the empty bearer token
     bearer_token = ""
     if consumer_key == "" or secret_key == "":
         return bearer_token
@@ -88,6 +89,7 @@ def frisk_auth_tweets_list(user_str):
     # and the value will be a count of that hashtag incremented with each occurrence
     counted_hashtags = {}
 
+    # If bearer token can't be created, return early
     if bearer_token == "":
         return status_list, counted_hashtags
 
@@ -95,10 +97,10 @@ def frisk_auth_tweets_list(user_str):
     manager = urllib3.PoolManager()
 
     # encode the search string to be used as params in URL
-    user_str = encode_search_string(user_str)
+    enc_user_str = encode_search_string(user_str)
 
     # Format the Twitter URL appropriately
-    url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + user_str
+    url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + enc_user_str
 
     # Set the Authorization header using the value of the bearer_token key
     http_headers = {'Authorization': 'Bearer %s' % bearer_token['access_token']}
