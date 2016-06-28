@@ -150,4 +150,4 @@ def frisk_tweets(search_str):
     # get code, tweets, and hashtag dictionaries
     status_list, counted_hashtags = frisk_auth_tweets_list(search_str)
 
-    return status, status_list
+    return status, status_list, counted_hashtags

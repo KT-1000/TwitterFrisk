@@ -34,7 +34,7 @@ class TestReturnTweets(unittest.TestCase):
     def test_return_exists(self):
         """ Search must return at least one tweet. """
         s = "cat"
-        status, tweet_list = fts.frisk_tweets(s)
+        status, tweet_list, hashtags = fts.frisk_tweets(s)
         self.assertIsNotNone(tweet_list, self)
 
 
@@ -52,7 +52,7 @@ class TestSearchString(unittest.TestCase):
     def test_search_length(self):
         """ Best practice: must be no more than 10 keywords and operators per search. """
         s = '1 2 3 4 5 6 7 8 9 10'
-        status, tweet_list = fts.frisk_tweets(s)
+        status, tweets, hashtags = fts.frisk_tweets(s)
         self.assertLessEqual(status, "OK")
 
 
@@ -73,7 +73,7 @@ class TestTwitterAPI(unittest.TestCase):
     def test_list_tweets_returned(self):
         """ A user string should return a list of tweets. """
         s = "Brexit"
-        tweets = fts.frisk_auth_tweets_list(s)
+        status, tweets, hashtags = fts.frisk_tweets(s)
         self.assertGreaterEqual(len(tweets), 0)
 
 if __name__ == '__main__':
