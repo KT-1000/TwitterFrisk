@@ -81,6 +81,12 @@ def frisk_auth_tweets_list(encoded_user_str):
     # get bearer token
     bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
 
+    # List of tweets aka statuses according to Twitter
+    status_list = []
+
+    # Each hastag in result set is a key, and the value will be a count of that hashtag incremented with each occurrence
+    counted_hashtags = {}
+
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
 
@@ -95,12 +101,6 @@ def frisk_auth_tweets_list(encoded_user_str):
 
     # Jsonify the request, so we can make each tweet
     json_statuses = json.loads(r.data)
-
-    # List of tweets aka statuses according to Twitter
-    status_list = []
-
-    # Each hastag in result set is a key, and the value will be a count of that hashtag incremented with each occurrence
-    counted_hashtags = {}
 
     # Grab the values from json's statuses dict to create a new FriskTweet object
     for status in json_statuses["statuses"]:
@@ -142,6 +142,6 @@ def frisk_tweets(search_str):
     encoded_search = encode_search_string(search_str)
 
     # get code, tweets, and hashtag dictionaries
-    status_list, counted_hashtags = frisk_auth_tweets_list(bearer_token, encoded_search)
+    status_list, counted_hashtags = frisk_auth_tweets_list(encoded_search)
 
     return status, status_list
