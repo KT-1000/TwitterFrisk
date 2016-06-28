@@ -18,9 +18,9 @@
                 <tr>
                     <td>
                         <ul>
-                        {% for hashtag in hashtag_count %}
-                            <li>{{ hashtag }}</li>
-                        {% endfor %}
+                            {% for key, value in hashtags.iteritems() %}
+                            <li># {{ key }} : {{ value }}</li>
+                            {% endfor %}
                         </ul>
                     </td>
                     <td>

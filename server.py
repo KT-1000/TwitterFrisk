@@ -16,7 +16,7 @@ def search():
     status, tweets, hashtags = fts.frisk_tweets(search_str)
 
     return render_template("index.html",
-                           hashtag_count=hashtags,
+                           hashtags=hashtags,
                            status_list=tweets)
 
 if __name__ == "__main__":
