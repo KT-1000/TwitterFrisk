@@ -12,10 +12,8 @@ def index():
 
 @app.route('/search')
 def search():
-    status, tweets, hashtags = fts.frisk_tweets("cats")
-    # tweets = request.args.get()
-    hashtag_count = [11, 75, 99]
-    status_list = [99, 0, 241234234, 66]
+    search_str = request.args.get("search-term")
+    status, tweets, hashtags = fts.frisk_tweets(search_str)
 
     return render_template("index.html",
                            hashtag_count=hashtags,
