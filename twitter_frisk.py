@@ -18,7 +18,6 @@
 
 from urllib import quote_plus
 import urllib3
-import requests
 import json
 import base64
 import secrets as sec
@@ -51,6 +50,7 @@ def frisk_tweets_auth(consumer_key, secret_key):
     Note that this is necessary for the Twitter Search API:
     APPLICATION-ONLY AUTHENTICATION: https://dev.twitter.com/oauth/application-only
     """
+
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
 
@@ -68,14 +68,18 @@ def frisk_tweets_auth(consumer_key, secret_key):
     response = manager.urlopen("POST", oauth_url, headers=http_headers, body=request_body)
 
     # Read the response as JSON
-    app_token = json.loads(response.data.decode("utf-8"))
+    bearer_token = json.loads(response.data.decode("utf-8"))
 
-    return app_token
+    return bearer_token
 
 
-def frisk_auth_tweets_list(bearer_token, encoded_user_str):
+def frisk_auth_tweets_list(encoded_user_str):
     """ Takes an encoded string and bearer token, and returns a status code and list of tweets. """
-    code = 0
+    # get bearer token
+    bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
+    bearer_token = ""
+    if consumer_key == "" or secret_key == "":
+        return bearer_token
 
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
@@ -88,10 +92,6 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
 
     # Send the request
     r = manager.urlopen('GET', url, headers=http_headers)
-    # HTTP 400 Bad Request
-    if r.status_code == 400:
-        r_json = r.json()
-        code = r_json["errors"][0]['code']
 
     # Jsonify the request, so we can make each tweet
     json_statuses = json.loads(r.data)
@@ -122,7 +122,7 @@ def frisk_auth_tweets_list(bearer_token, encoded_user_str):
                 print e, hashtag_dict
                 continue
 
-    return code, status_list, counted_hashtags
+    return status_list, counted_hashtags
 
 
 def frisk_tweets(search_str):
@@ -141,10 +141,7 @@ def frisk_tweets(search_str):
     # encode the search string to be used as params in URL
     encoded_search = encode_search_string(search_str)
 
-    # get bearer token
-    bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
-
     # get code, tweets, and hashtag dictionaries
-    code, status_list, counted_hashtags = frisk_auth_tweets_list(bearer_token, encoded_search)
+    status_list, counted_hashtags = frisk_auth_tweets_list(bearer_token, encoded_search)
 
     return status, status_list
