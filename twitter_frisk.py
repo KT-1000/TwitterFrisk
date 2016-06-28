@@ -50,6 +50,9 @@ def frisk_tweets_auth(consumer_key, secret_key):
     Note that this is necessary for the Twitter Search API:
     APPLICATION-ONLY AUTHENTICATION: https://dev.twitter.com/oauth/application-only
     """
+    bearer_token = ""
+    if consumer_key == "" or secret_key == "":
+        return bearer_token
 
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
@@ -77,9 +80,6 @@ def frisk_auth_tweets_list(encoded_user_str):
     """ Takes an encoded string and bearer token, and returns a status code and list of tweets. """
     # get bearer token
     bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
-    bearer_token = ""
-    if consumer_key == "" or secret_key == "":
-        return bearer_token
 
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
