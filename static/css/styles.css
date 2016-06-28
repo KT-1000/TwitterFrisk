@@ -21,3 +21,7 @@ body {
     margin-top: -12px;
     height: 50px;
 }
+
+.glyphicon-heart {
+    color: rgba(181, 5, 15, 0.89)
+}

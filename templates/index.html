@@ -2,6 +2,7 @@
 {% block content %}
     <div class="row">
         <!-- Hashtags -->
+        <div class="col-xs-6 col-md-4">
             <ul class="list-group">
                 {% for key, value in hashtags.iteritems() %}
                 <li class="list-group-item">
@@ -10,7 +11,9 @@
                 </li>
                 {% endfor %}
             </ul>
+        </div> <!-- .col-->
         <!-- Tweets -->
+        <div class="col-xs-12 col-sm-6 col-md-8">
             {% for status in status_list %}
             <div class="media panel panel-default panel-body">
                 <div class="media-left">
@@ -25,6 +28,6 @@
                 </div>
             </div>
             {% endfor %}
-
+        </div><!-- .col -->
     </div><!-- .row -->
 {% endblock %}
