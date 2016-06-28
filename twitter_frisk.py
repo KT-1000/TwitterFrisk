@@ -78,7 +78,7 @@ def frisk_tweets_auth(consumer_key, secret_key):
 
 
 def frisk_auth_tweets_list(user_str):
-    """ Takes an encoded string, and returns a status code and list of tweets. """
+    """ Takes an encoded string, and returns a list of tweets and a dictionary of hashtags. """
     # get bearer token
     bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
 
@@ -135,7 +135,8 @@ def frisk_auth_tweets_list(user_str):
 
 
 def frisk_tweets(search_str):
-    """ Takes in user-entered search string, returns a status message and list of tweets. """
+    """ Takes in user-entered search string, returns a status message, list of tweets
+    and a dictionary of hashtags with a count of how many time each occurred. """
     error_long_search = "Error: Invalid search. Please use ten or fewer words and operands."
     success_search = "OK"
 
