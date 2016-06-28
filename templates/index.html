@@ -26,7 +26,7 @@
                     <td>
                         <ul>
                         {% for status in status_list %}
-                            <li>{{status}}</li>
+                            <li>{{ status.name }} {{ status.content }} {{ status.favorited }}</li>
                         {% endfor %}
                         </ul>
                     </td>

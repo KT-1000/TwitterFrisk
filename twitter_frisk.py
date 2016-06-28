@@ -90,7 +90,7 @@ def frisk_auth_tweets_list(user_str):
     counted_hashtags = {}
 
     # If bearer token can't be created, return early
-    if bearer_token == "":
+    if bearer_token == "" or user_str == "":
         return status_list, counted_hashtags
 
     # Create an HTTP connection pool manager
