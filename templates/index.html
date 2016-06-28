@@ -14,6 +14,24 @@
                     <input id="hp-search" class="btn btn-lg btn-default col-xs-4 col-xs-offset-4" type="submit" value="Search">
                 </div>
             </form>
+            <table>
+                <tr>
+                    <td>
+                        <ul>
+                        {% for hashtag in hashtag_count %}
+                            <li>{{ hashtag }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                        {% for status in status_list %}
+                            <li>{{status}}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
     </div>
 </div>
 
