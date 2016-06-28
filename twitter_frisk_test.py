@@ -59,7 +59,7 @@ class TestSearchString(unittest.TestCase):
 class TestTwitterAPI(unittest.TestCase):
 
     def test_failed_authentication(self):
-        """ Bad authentication returns blank bearer token. """
+        """ Bad authentication returns an empty string as a bearer token. """
         bearer_token = fts.frisk_tweets_auth("", "")
         self.assertEqual(bearer_token, "")
 
@@ -68,13 +68,12 @@ class TestTwitterAPI(unittest.TestCase):
         https://dev.twitter.com/oauth/application-only
         """
         bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
-        self.assertGreaterEqual(len(bearer_token), 0)
+        self.assertNotEqual(bearer_token, "")
 
     def test_list_tweets_returned(self):
-        """ A bearer token and user string should return a list of tweets. """
+        """ A user string should return a list of tweets. """
         s = "Brexit"
-        bearer_token = fts.frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
-        tweets = fts.frisk_auth_tweets_list(bearer_token, s)
+        tweets = fts.frisk_auth_tweets_list(s)
         self.assertGreaterEqual(len(tweets), 0)
 
 if __name__ == '__main__':
