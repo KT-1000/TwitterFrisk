@@ -76,7 +76,7 @@ def frisk_tweets_auth(consumer_key, secret_key):
     return bearer_token
 
 
-def frisk_auth_tweets_list(encoded_user_str):
+def frisk_auth_tweets_list(user_str):
     """ Takes an encoded string, and returns a status code and list of tweets. """
     # get bearer token
     bearer_token = frisk_tweets_auth(sec.CONSUMER_KEY, sec.CONSUMER_SECRET)
@@ -94,8 +94,11 @@ def frisk_auth_tweets_list(encoded_user_str):
     # Create an HTTP connection pool manager
     manager = urllib3.PoolManager()
 
+    # encode the search string to be used as params in URL
+    user_str = encode_search_string(user_str)
+
     # Format the Twitter URL appropriately
-    url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + encoded_user_str
+    url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + user_str
 
     # Set the Authorization header using the value of the bearer_token key
     http_headers = {'Authorization': 'Bearer %s' % bearer_token['access_token']}
@@ -142,10 +145,7 @@ def frisk_tweets(search_str):
     if len(words) > 10:
         status = error_long_search
 
-    # encode the search string to be used as params in URL
-    encoded_search = encode_search_string(search_str)
-
     # get code, tweets, and hashtag dictionaries
-    status_list, counted_hashtags = frisk_auth_tweets_list(encoded_search)
+    status_list, counted_hashtags = frisk_auth_tweets_list(search_str)
 
     return status, status_list
