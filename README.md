@@ -2,7 +2,7 @@
 
 TwitterFrisk is a search engine that uses the Twitter API to return tweets given a user-entered string.
 
-![TwitterFrisk in action](/static/images/TwitterFrisk.png?raw=true "TwitterFrisk")
+![TwitterFrisk in action](/static/images/TwitterFrisk.PNG?raw=true "TwitterFrisk")
 
 ## <a name="technologiesused"></a>Technologies Used
 - [Python](https://www.python.org/)
