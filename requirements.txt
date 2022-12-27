@@ -20,7 +20,7 @@ psycopg2==2.6.1
 pyOpenSSL==16.0.0
 pyasn1==0.1.9
 pycparser==2.14
-setuptools==18.2
+setuptools==65.5.1
 six==1.10.0
 urllib3==1.16
 wheel==0.24.0
